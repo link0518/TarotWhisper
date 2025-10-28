@@ -22,7 +22,7 @@ export default function TarotCard({
   onClick,
   showCardBack = false
 }: TarotCardProps) {
-  const imageUrl = showCardBack || !isRevealed ? CARD_BACK_IMAGE : getCardImage(cardId || '')
+  const imageUrl = showCardBack || !isRevealed ? CARD_BACK_IMAGE : getCardImage(cardId ?? '')
   
   return (
     <div 

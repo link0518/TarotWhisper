@@ -228,12 +228,12 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
             <p className="text-purple-300">牌阵：{spread.name}</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
             {/* Cards Display */}
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 flex flex-col">
               <h2 className="text-xl font-bold text-white mb-6 text-center">抽到的牌</h2>
-              <div className="space-y-6">
+              <div className="flex-1 space-y-6">
                 {drawnCards.map((drawnCard, index) => (
                   <div key={index} className="bg-white/10 rounded-lg p-4 border border-white/20">
                     <div className="flex items-center justify-between mb-3">
@@ -295,13 +295,13 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
             </div>
 
             {/* Analysis Display */}
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 flex flex-col">
               <h2 className="text-xl font-bold text-white mb-6 text-center">塔罗解读</h2>
               
-              {/* 固定高度的内容容器，防止页面晃动 */}
+              {/* 内容容器，高度自适应，填充剩余空间 */}
               <div 
                 ref={analysisContainerRef}
-                className="min-h-[600px] max-h-[800px] overflow-y-auto scroll-smooth"
+                className="flex-1 overflow-y-auto scroll-smooth"
               >
                 {error && (
                   <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
