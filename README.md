@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔮 TarotWhisper - 塔罗牌占卜网站
 
-## Getting Started
+一个纯前端的塔罗牌占卜网站，用户可以输入问题，选择牌阵，进行虚拟抽牌，并通过 OpenAI 兼容 API 获得 AI 塔罗大师的解读分析。
 
-First, run the development server:
+## ✨ 功能特性
+
+- 🃏 **完整塔罗牌库**：包含 78 张标准塔罗牌（22 张大阿尔卡那 + 56 张小阿尔卡那）
+- 🎨 **精美牌面图片**：高质量塔罗牌图片，支持正逆位显示
+- 🎯 **多种牌阵**：支持单张牌、三张牌（时间流/身心灵）、凯尔特十字等经典牌阵
+- 🎲 **真实抽牌体验**：Fisher-Yates 洗牌算法，50% 概率正逆位
+- ✨ **翻牌动画**：流畅的 3D 翻牌效果，增强沉浸感
+- 🤖 **AI 智能解读**：集成 OpenAI 兼容 API，提供专业的塔罗牌分析
+- 📝 **Markdown 渲染**：支持格式化的 AI 分析结果显示
+- 🔒 **隐私安全**：所有 API 配置仅保存在本地浏览器，不上传服务器
+- 📱 **响应式设计**：支持桌面端和移动端访问
+- 🌊 **流式显示**：实时显示 AI 分析结果，固定容器防止页面晃动
+
+## 🚀 快速开始
+
+### 1. 安装依赖
+
+```bash
+npm install
+```
+
+### 2. 启动开发服务器
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 [http://localhost:3000](http://localhost:3000) 查看网站。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. 配置 API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+首次使用需要配置 OpenAI 兼容的 API：
 
-## Learn More
+1. 点击页面上的"前往设置"或访问 `/settings` 页面
+2. 填写以下信息：
+   - **API Base URL**: 如 `https://api.openai.com/v1`
+   - **API Key**: 您的 API 密钥
+   - **模型名称**: 如 `gpt-4o-mini`
+3. 点击"测试连接"验证配置
+4. 点击"保存设置"
 
-To learn more about Next.js, take a look at the following resources:
+### 4. 开始占卜
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. 在主页输入您的问题
+2. 选择合适的牌阵
+3. 点击"开始占卜"
+4. 按提示逐张抽牌
+5. 查看 AI 塔罗大师的解读分析
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 支持的牌阵
 
-## Deploy on Vercel
+### 单张牌 (One-Card Draw)
+- **用途**：快速指引、日常建议
+- **牌数**：1 张
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 三张牌 - 时间流 (Past-Present-Future)
+- **用途**：了解问题的发展脉络
+- **牌数**：3 张
+- **位置**：过去 - 现在 - 未来
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 三张牌 - 身心灵 (Mind-Body-Spirit)
+- **用途**：全面分析问题的不同层面
+- **牌数**：3 张
+- **位置**：身（物质）- 心（思想）- 灵（精神）
+
+### 凯尔特十字 (Celtic Cross)
+- **用途**：深入全面的问题分析
+- **牌数**：10 张
+- **位置**：现状、挑战、基础、过去影响、可能未来、近期未来、态度、外部影响、希望恐惧、最终结果
+
+## 🔧 技术栈
+
+- **框架**：Next.js 16 (App Router)
+- **语言**：TypeScript
+- **样式**：Tailwind CSS
+- **数据存储**：localStorage (API 配置) + sessionStorage (会话数据)
+- **AI 集成**：OpenAI 兼容 API (支持流式响应)
+
+## 📁 项目结构
+
+```
+tarot-whisper/
+├── app/                    # Next.js App Router 页面
+│   ├── page.tsx           # 主页 - 问题输入和牌阵选择
+│   ├── settings/          # 设置页面 - API 配置
+│   ├── draw/              # 抽牌页面 - 虚拟抽牌
+│   └── analysis/          # 分析页面 - 结果展示和 AI 解读
+├── data/                  # 数据文件
+│   ├── tarot-cards.json   # 78 张塔罗牌完整数据
+│   └── spreads.json       # 牌阵配置数据
+└── public/                # 静态资源
+```
+
+## 🔒 隐私与安全
+
+- ✅ API 密钥仅保存在浏览器本地存储中
+- ✅ 不会向任何第三方服务器发送您的密钥
+- ✅ 占卜问题和结果不会被永久存储
+- ⚠️ 请勿在公共电脑上使用
+- ⚠️ 建议定期更换 API 密钥
+
+## 🎨 自定义
+
+### 添加新牌阵
+
+编辑 `data/spreads.json` 文件，按照现有格式添加新的牌阵配置。
+
+### 修改塔罗牌数据
+
+编辑 `data/tarot-cards.json` 文件，可以修改牌名、关键词等信息。
+
+### 调整 AI 提示词
+
+在 `app/analysis/page.tsx` 中的 `systemPrompt` 变量可以调整 AI 的角色设定和分析风格。
+
+## 📝 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+---
+
+**免责声明**：本项目仅供娱乐和自我探索使用，不应作为重大决策的唯一依据。对于医疗、法律、金融等专业问题，请咨询相关专业人士。

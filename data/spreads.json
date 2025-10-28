@@ -1,0 +1,125 @@
+{
+  "spreads": [
+    {
+      "id": "single_card",
+      "name": "单张牌",
+      "englishName": "One-Card Draw",
+      "description": "用于快速获得当日指引或对一个简单问题的核心洞察",
+      "cardCount": 1,
+      "positions": [
+        {
+          "id": 1,
+          "name": "核心答案",
+          "description": "对你问题的核心指引或答案"
+        }
+      ]
+    },
+    {
+      "id": "three_card_time",
+      "name": "三张牌（时间流）",
+      "englishName": "Three-Card Spread (Past-Present-Future)",
+      "description": "最常用的牌阵之一，展现问题的时间发展脉络",
+      "cardCount": 3,
+      "positions": [
+        {
+          "id": 1,
+          "name": "过去",
+          "description": "问题的背景或起因，影响当前状况的过去因素"
+        },
+        {
+          "id": 2,
+          "name": "现在",
+          "description": "目前的状况、挑战或你当下面临的核心问题"
+        },
+        {
+          "id": 3,
+          "name": "未来",
+          "description": "可能的结果或发展方向，基于当前路径的趋势"
+        }
+      ]
+    },
+    {
+      "id": "three_card_mind_body_spirit",
+      "name": "三张牌（身心灵）",
+      "englishName": "Three-Card Spread (Mind-Body-Spirit)",
+      "description": "从身心灵三个层面全面分析问题",
+      "cardCount": 3,
+      "positions": [
+        {
+          "id": 1,
+          "name": "身（物质层面）",
+          "description": "物质世界的影响、实际行动或身体层面的考量"
+        },
+        {
+          "id": 2,
+          "name": "心（思想层面）",
+          "description": "思想、策略、理性分析或心理层面的因素"
+        },
+        {
+          "id": 3,
+          "name": "灵（精神层面）",
+          "description": "情感、直觉、精神指引或灵性层面的洞察"
+        }
+      ]
+    },
+    {
+      "id": "celtic_cross",
+      "name": "凯尔特十字",
+      "englishName": "Celtic Cross",
+      "description": "经典且深入的牌阵，提供对问题的全景式分析",
+      "cardCount": 10,
+      "positions": [
+        {
+          "id": 1,
+          "name": "现状",
+          "description": "问题的核心或你当下的状态，整个情况的中心"
+        },
+        {
+          "id": 2,
+          "name": "挑战/障碍",
+          "description": "交叉在现状上的牌，代表眼前的挑战或需要克服的阻碍"
+        },
+        {
+          "id": 3,
+          "name": "基础/根源",
+          "description": "问题的根源、深层原因或奠定当前情况的基础"
+        },
+        {
+          "id": 4,
+          "name": "过去影响",
+          "description": "刚刚发生的事件或近期对当前状况产生影响的因素"
+        },
+        {
+          "id": 5,
+          "name": "可能的未来",
+          "description": "基于当前路径可能出现的结果或即将发生的情况"
+        },
+        {
+          "id": 6,
+          "name": "近期未来",
+          "description": "即将到来的情况、短期内会发生的事件"
+        },
+        {
+          "id": 7,
+          "name": "你的态度",
+          "description": "你自己对问题的态度、内在状态或在情况中扮演的角色"
+        },
+        {
+          "id": 8,
+          "name": "外部影响",
+          "description": "他人的影响、环境因素或你无法直接控制的外部力量"
+        },
+        {
+          "id": 9,
+          "name": "希望与恐惧",
+          "description": "你内在的期望、担忧或潜意识的希望和恐惧"
+        },
+        {
+          "id": 10,
+          "name": "最终结果",
+          "description": "基于前面所有因素的综合，最可能的最终结果或结局"
+        }
+      ]
+    }
+  ]
+}
