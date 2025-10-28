@@ -251,14 +251,14 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
                     
                     {/* 卡牌图片和信息 */}
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 w-20">
                         <TarotCard
                           cardId={drawnCard.card.id}
                           cardName={drawnCard.card.name}
                           englishName={drawnCard.card.englishName}
                           isReversed={drawnCard.isReversed}
                           isRevealed={true}
-                          className="w-20"
+                          className="w-full"
                         />
                       </div>
                       

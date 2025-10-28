@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import tarotCardsData from '../../data/tarot-cards.json'
 import spreadsData from '../../data/spreads.json'
-import TarotCard from '../../components/TarotCard'
-import FlipCard from '../../components/FlipCard'
+import SpreadLayout from '../../components/SpreadLayout'
 
 interface TarotCard {
   id: string | number
@@ -47,6 +46,7 @@ export default function DrawPage() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
   const [isDrawing, setIsDrawing] = useState(false)
   const [shuffledDeck, setShuffledDeck] = useState<TarotCard[]>([])
+  const [drawingPositionId, setDrawingPositionId] = useState<number | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -112,16 +112,21 @@ export default function DrawPage() {
     }, 0)
   }, [router])
 
-  const drawCard = () => {
+  const drawCardAtPosition = (positionId: number) => {
     if (!spread || isDrawing || currentCardIndex >= spread.cardCount) return
+    
+    // 检查该位置是否已经抽过牌
+    const alreadyDrawn = drawnCards.some(card => card.position.id === positionId)
+    if (alreadyDrawn) return
 
     setIsDrawing(true)
+    setDrawingPositionId(positionId)
 
     // 模拟抽牌动画延迟
     setTimeout(() => {
       const card = shuffledDeck[currentCardIndex]
       const isReversed = Math.random() < 0.5 // 50% 概率逆位
-      const position = spread.positions[currentCardIndex]
+      const position = spread.positions.find(p => p.id === positionId)!
 
       const drawnCard: DrawnCard = {
         card,
@@ -132,7 +137,18 @@ export default function DrawPage() {
       setDrawnCards(prev => [...prev, drawnCard])
       setCurrentCardIndex(prev => prev + 1)
       setIsDrawing(false)
+      setDrawingPositionId(null)
     }, 1000)
+  }
+
+  // 获取指定位置的已抽牌
+  const getCardAtPosition = (positionId: number): DrawnCard | null => {
+    return drawnCards.find(card => card.position.id === positionId) || null
+  }
+
+  // 检查位置是否可以抽牌
+  const canDrawAtPosition = (positionId: number): boolean => {
+    return !getCardAtPosition(positionId) && !isDrawing
   }
 
   const handleAnalyze = () => {
@@ -178,70 +194,32 @@ export default function DrawPage() {
             </div>
           </div>
 
-          {/* Card Deck */}
+          {/* 抽牌指引 */}
           {!isComplete && (
             <div className="text-center mb-8">
-              <div className="inline-block">
-                <TarotCard
-                  showCardBack={true}
-                  className={`transition-all duration-300 transform hover:scale-105 ${
-                    isDrawing ? 'animate-pulse scale-105' : ''
-                  }`}
-                  onClick={drawCard}
-                />
-                
-                {/* 抽牌提示 */}
-                <div className="mt-4 text-white">
-                  <div className="text-lg font-medium mb-2">
-                    {isDrawing ? '抽牌中...' : '点击抽牌'}
-                  </div>
-                  {currentCardIndex < spread.cardCount && (
-                    <>
-                      <p className="text-lg font-medium">
-                        请抽取第 {currentCardIndex + 1} 张牌
-                      </p>
-                      <p className="text-gray-300 text-sm">
-                        位置：{spread.positions[currentCardIndex]?.name}
-                      </p>
-                    </>
-                  )}
+              <div className="text-white">
+                <div className="text-lg font-medium mb-2">
+                  {isDrawing ? '正在抽牌...' : '点击下方位置进行抽牌'}
                 </div>
+                <p className="text-gray-300 text-sm">
+                  请按照牌阵布局，点击相应位置抽取塔罗牌
+                </p>
               </div>
             </div>
           )}
 
-          {/* Drawn Cards */}
-          {drawnCards.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-white text-center mb-6">已抽取的牌</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {drawnCards.map((drawnCard, index) => (
-                  <div key={index} className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
-                    <div className="text-center mb-3">
-                      <div className="text-purple-300 text-sm font-medium mb-1">
-                        位置 {drawnCard.position.id}: {drawnCard.position.name}
-                      </div>
-                      <div className="text-gray-400 text-xs">
-                        {drawnCard.position.description}
-                      </div>
-                    </div>
-                    
-                    <div className="flex justify-center mb-4">
-                      <FlipCard
-                        cardId={drawnCard.card.id}
-                        cardName={drawnCard.card.name}
-                        englishName={drawnCard.card.englishName}
-                        isReversed={drawnCard.isReversed}
-                        autoFlip={true}
-                        flipDelay={500 + index * 300} // 错开翻牌时间
-                        className="w-32"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* 牌阵布局 */}
+          <div className="mb-8">
+            <SpreadLayout
+              spreadId={spread.id}
+              positions={spread.positions}
+              drawnCards={drawnCards}
+              onPositionClick={drawCardAtPosition}
+              canDrawAtPosition={canDrawAtPosition}
+              isDrawing={isDrawing}
+              drawingPositionId={drawingPositionId}
+            />
+          </div>
 
           {/* Complete Button */}
           {isComplete && (
