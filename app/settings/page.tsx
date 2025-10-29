@@ -22,7 +22,7 @@ export default function SettingsPage() {
     const savedBaseUrl = localStorage.getItem('tarot_api_base_url')
     const savedApiKey = localStorage.getItem('tarot_api_key')
     const savedModel = localStorage.getItem('tarot_api_model')
-    
+
     if (savedBaseUrl) setBaseUrl(savedBaseUrl)
     if (savedApiKey) setApiKey(savedApiKey)
     if (savedModel) setModel(savedModel)
@@ -42,9 +42,9 @@ export default function SettingsPage() {
       localStorage.setItem('tarot_api_base_url', baseUrl.trim())
       localStorage.setItem('tarot_api_key', apiKey.trim())
       localStorage.setItem('tarot_api_model', model.trim())
-      
+
       setMessage('设置已保存成功！')
-      
+
       // 2秒后跳转到主页
       setTimeout(() => {
         router.push('/')
@@ -54,6 +54,20 @@ export default function SettingsPage() {
     } finally {
       setSaveLoading(false)
     }
+  }
+
+  const handleResetToDefault = () => {
+    // 清空所有客户端 API 设置
+    localStorage.removeItem('tarot_api_base_url')
+    localStorage.removeItem('tarot_api_key')
+    localStorage.removeItem('tarot_api_model')
+    
+    // 清空表单
+    setBaseUrl('')
+    setApiKey('')
+    setModel(getDefaultLlmModel())
+    
+    setMessage('✅ 已恢复为服务器默认配置')
   }
 
   const handleTestConnection = async () => {
@@ -133,9 +147,17 @@ export default function SettingsPage() {
                 )}
 
                 <div>
-                  <label htmlFor="baseUrl" className="mb-3 block text-xs font-semibold uppercase tracking-[0.35em] text-purple-200/80">
-                    API Base URL
-                  </label>
+                  <div className="mb-3 flex items-center justify-between">
+                    <label htmlFor="baseUrl" className="block text-xs font-semibold uppercase tracking-[0.35em] text-purple-200/80">
+                      API Base URL
+                    </label>
+                    <button
+                      onClick={handleResetToDefault}
+                      className="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-200 backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
+                    >
+                      恢复默认
+                    </button>
+                  </div>
                   <input
                     type="url"
                     id="baseUrl"
@@ -158,7 +180,7 @@ export default function SettingsPage() {
                     id="apiKey"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    placeholder="sk-..."
+                    placeholder="sk-"
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-5 py-3 text-sm text-slate-100 shadow-[0_15px_45px_rgba(24,24,45,0.35)] backdrop-blur focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/60 placeholder:text-slate-400"
                   />
                   <p className="mt-2 text-xs text-slate-300/70">
@@ -175,7 +197,7 @@ export default function SettingsPage() {
                     id="model"
                     value={model}
                     onChange={(e) => setModel(e.target.value)}
-                    placeholder="gpt-4o-mini"
+                    placeholder="gemini-2.5-flash-lite"
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-5 py-3 text-sm text-slate-100 shadow-[0_15px_45px_rgba(24,24,45,0.35)] backdrop-blur focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/60 placeholder:text-slate-400"
                   />
                   <p className="mt-2 text-xs text-slate-300/70">
@@ -185,13 +207,12 @@ export default function SettingsPage() {
 
                 {message && (
                   <div
-                    className={`rounded-2xl border p-4 text-sm shadow-[0_18px_45px_rgba(79,70,229,0.25)] ${
-                      message.includes('成功') || message.includes('✅')
-                        ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200'
-                        : message.includes('❌') || message.includes('错误') || message.includes('失败')
+                    className={`rounded-2xl border p-4 text-sm shadow-[0_18px_45px_rgba(79,70,229,0.25)] ${message.includes('成功') || message.includes('✅')
+                      ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200'
+                      : message.includes('❌') || message.includes('错误') || message.includes('失败')
                         ? 'border-red-400/40 bg-red-500/10 text-red-200'
                         : 'border-sky-400/40 bg-sky-500/10 text-sky-200'
-                    }`}
+                      }`}
                   >
                     {message}
                   </div>

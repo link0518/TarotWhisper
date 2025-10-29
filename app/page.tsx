@@ -38,7 +38,7 @@ export default function Home() {
       alert('请输入你的问题')
       return
     }
-    
+
     if (!selectedSpread) {
       alert('请选择一个牌阵')
       return
@@ -58,7 +58,7 @@ export default function Home() {
     // 保存问题和牌阵到 sessionStorage
     sessionStorage.setItem('tarot_question', question)
     sessionStorage.setItem('tarot_spread', selectedSpread)
-    
+
     // 跳转到抽牌页面
     router.push('/draw')
   }
@@ -152,19 +152,17 @@ export default function Home() {
                   {spreadsData.spreads.map((spread: Spread) => (
                     <div
                       key={spread.id}
-                      className={`relative overflow-hidden rounded-2xl border transition-all duration-300 ${
-                        selectedSpread === spread.id
+                      className={`relative overflow-hidden rounded-2xl border transition-all duration-300 ${selectedSpread === spread.id
                           ? 'border-purple-300/70 bg-purple-500/15 shadow-[0_20px_55px_rgba(124,58,237,0.45)]'
                           : 'border-white/10 bg-white/5 shadow-[0_18px_40px_rgba(17,17,39,0.35)] hover:border-purple-300/40 hover:shadow-[0_25px_60px_rgba(124,58,237,0.35)]'
-                      } cursor-pointer`}
+                        } cursor-pointer`}
                       onClick={() => setSelectedSpread(spread.id)}
                     >
                       <div
-                        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
-                          selectedSpread === spread.id
+                        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${selectedSpread === spread.id
                             ? 'opacity-80'
                             : 'opacity-0 group-hover:opacity-50'
-                        }`}
+                          }`}
                       >
                         <div className="animate-mystical-gradient h-full w-full bg-[radial-gradient(circle_at_top,_rgba(192,132,252,0.18),transparent_60%)]" />
                       </div>
