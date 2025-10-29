@@ -35,7 +35,7 @@ export default function Home() {
 
   const handleStartReading = () => {
     if (!question.trim()) {
-      alert('请输入您的问题')
+      alert('请输入你的问题')
       return
     }
     
@@ -50,7 +50,7 @@ export default function Home() {
     const hasLocalConfig = Boolean(apiKey && baseUrl)
 
     if (!hasLocalConfig && !defaultLlmUsable) {
-      alert('请先在设置页面配置您的 API')
+      alert('请先在设置页面配置你的 API')
       router.push('/settings')
       return
     }
@@ -81,13 +81,13 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-14 space-y-5">
             <span className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.38em] text-purple-200/80 backdrop-blur">
-              Tarot & Astrology
+              塔罗 & 占星
             </span>
             <h1 className="text-5xl md:text-6xl font-semibold font-[var(--font-display)] text-transparent bg-clip-text bg-gradient-to-r from-purple-100 via-violet-200 to-pink-200 drop-shadow-[0_10px_40px_rgba(124,58,237,0.45)]">
-              🔮 TarotWhisper
+              🦊 毛毛狐塔罗助手
             </h1>
             <p className="mx-auto max-w-3xl text-lg text-slate-200/80 md:text-xl">
-              探索内心的智慧，聆听塔罗的低语。输入您的问题，选择牌阵，让星辰与神秘之光为您汇聚答案。
+              探索 未知的可能，遇见 更好的自己，就从毛毛狐开始。
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export default function Home() {
                     <div>
                       <h3 className="text-base font-semibold text-yellow-200">需要配置 API</h3>
                       <p className="text-sm text-yellow-100/80">
-                        请先配置您的 OpenAI 兼容 API 以开始占卜
+                        请先配置你的 OpenAI 兼容 API 以开始占卜
                       </p>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export default function Home() {
                   htmlFor="question"
                   className="mb-4 block text-left text-sm font-semibold uppercase tracking-[0.35em] text-purple-200/80"
                 >
-                  💭 您的问题
+                  💭 你的问题
                 </label>
                 <div className="relative">
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-400/40 to-transparent" />
@@ -132,7 +132,7 @@ export default function Home() {
                     id="question"
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
-                    placeholder="请输入您想要占卜的问题，例如：我最近的感情运势如何？我是否应该在今年内换工作？"
+                    placeholder="请输入想要占卜的问题，寻求毛毛狐的解答。"
                     rows={4}
                     className="w-full rounded-2xl border border-white/10 bg-black/20 px-5 py-4 text-base text-slate-100 shadow-[0_15px_45px_rgba(24,24,45,0.35)] backdrop-blur focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/60 placeholder:text-slate-400"
                   />

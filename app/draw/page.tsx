@@ -198,7 +198,7 @@ export default function DrawPage() {
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 backdrop-blur-xl shadow-[0_20px_60px_rgba(76,29,149,0.35)] max-w-3xl mx-auto">
                 <p className="text-slate-200/90 text-sm mb-2">
-                  <span className="text-purple-200 font-medium">您的问题：</span>
+                  <span className="text-purple-200 font-medium">你的问题：</span>
                   {question}
                 </p>
                 <p className="text-purple-200/80 text-sm">

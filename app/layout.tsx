@@ -30,7 +30,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "TarotWhisper | Mystical Tarot & Astrology Insights",
+  title: "毛毛狐塔罗助手",
   description:
     "TarotWhisper 将塔罗与占星的灵感融合，为你带来沉浸式的神秘占卜体验。",
 };

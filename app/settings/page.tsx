@@ -105,7 +105,7 @@ export default function SettingsPage() {
                 API 设置
               </h1>
               <p className="mx-auto max-w-2xl text-sm text-slate-200/80 md:text-base">
-                配置您的 OpenAI 兼容 API，让塔罗与星辰的智慧顺畅抵达。
+                配置你的 OpenAI 兼容 API，让塔罗与星辰的智慧顺畅抵达。
               </p>
             </div>
 
@@ -127,7 +127,7 @@ export default function SettingsPage() {
                       🌟 默认 LLM 已启用
                     </div>
                     <p className="text-xs leading-relaxed text-emerald-100/80">
-                      当前环境提供了预设的 LLM 配置，您可以直接开始占卜，或在下方填写信息以覆盖默认设置。
+                      当前环境提供了预设的 LLM 配置，你可以直接开始占卜，或在下方填写信息以覆盖默认设置。
                     </p>
                   </div>
                 )}
@@ -162,7 +162,7 @@ export default function SettingsPage() {
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-5 py-3 text-sm text-slate-100 shadow-[0_15px_45px_rgba(24,24,45,0.35)] backdrop-blur focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/60 placeholder:text-slate-400"
                   />
                   <p className="mt-2 text-xs text-slate-300/70">
-                    您的 API 密钥，以 sk- 开头
+                    你的 API 密钥，以 sk- 开头
                   </p>
                 </div>
 
@@ -220,7 +220,7 @@ export default function SettingsPage() {
                     🔒 安全与隐私
                   </h3>
                   <p className="text-xs leading-relaxed text-amber-100/80">
-                    如果您填写自己的 API 配置，所有请求将直接从您的浏览器发送到您指定的端点，密钥仅保存在本地浏览器中。如果使用默认配置，请求将通过我们的服务器代理以保护服务端密钥安全。
+                    如果你填写自己的 API 配置，所有请求将直接从你的浏览器发送到你指定的端点，密钥仅保存在本地浏览器中。如果使用默认配置，请求将通过我们的服务器代理以保护服务端密钥安全。
                   </p>
                 </div>
               </div>

@@ -55,14 +55,14 @@ export default function AnalysisPage() {
     const savedQuestion = sessionStorage.getItem('tarot_question')
     const savedSpreadId = sessionStorage.getItem('tarot_spread')
     const savedDrawnCards = sessionStorage.getItem('tarot_drawn_cards')
-    
+
     if (!savedQuestion || !savedSpreadId || !savedDrawnCards) {
       router.push('/')
       return
     }
 
     setQuestion(savedQuestion)
-    
+
     // 找到对应的牌阵
     const selectedSpread = spreadsData.spreads.find(s => s.id === savedSpreadId)
     if (!selectedSpread) {
@@ -74,7 +74,7 @@ export default function AnalysisPage() {
     try {
       const cards = JSON.parse(savedDrawnCards) as DrawnCard[]
       setDrawnCards(cards)
-      
+
       // 自动开始分析
       performAnalysis(savedQuestion, selectedSpread, cards)
     } catch (error) {
@@ -108,13 +108,15 @@ export default function AnalysisPage() {
         'gpt-4o-mini'
 
       // 构建系统提示词
-      const systemPrompt = `你是一位温柔、知心且富有神秘学气质的塔罗占卜师大姐姐。
+      const systemPrompt = `你是一位智慧、知心且富有神秘学气质的塔罗占卜师毛毛狐。
+      将深奥的神秘学知识以温暖、易于理解的方式传递给用户，核心是提供陪伴与启发，而非下达判决或指令。
 请基于用户的问题、所选牌阵、以及抽到的每一张牌（位置、牌名与正/逆位）进行完整而细腻的整合解读。
 
 风格与态度（非常重要）：
-- 温柔治愈、充满关爱，如同一位贴心的大姐姐；保持轻松愉快，不说教、不吓唬人。
+- 神秘并且充满智慧的毛毛狐；保持轻松愉快，不说教、不吓唬人。
 - 适量使用贴合情境的表情符号（如 ✨🌙💜🔮🌟），点到为止，避免频繁或喧宾夺主。
-- 语言要积极正面，给出可操作的鼓励与建议，关注现实可行性与内在成长。
+- 称呼用户为	星旅人、观星者 等充满神秘意味的称呼
+- 源自“狐”的特质，毛毛狐拥有超越表象的洞察力。它能够引导用户发现问题背后的深层原因，解读星盘与牌面中的象征性语言，提供富有启发性的见解。它的智慧不显锋芒，而是像溪流一样，安静而有力地为用户指引方向。。
 - 始终承认塔罗只是参考与启发，最终选择与行动属于求问者本人；鼓励相信自己的直觉与节奏。
 
 解读方法：
@@ -139,7 +141,7 @@ export default function AnalysisPage() {
         orientation: drawnCard.isReversed ? '逆位' : '正位'
       }))
 
-      const userPrompt = `亲爱的塔罗姐姐，请温柔地倾听我的心声，并为我解读吧💜
+      const userPrompt = `亲爱的毛毛狐，请温柔地倾听我的心声，并为我解读吧💜
 
 [我的问题]
 ${question}
@@ -215,7 +217,7 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
               if (content) {
                 analysisText += content
                 setAnalysis(analysisText)
-                
+
                 // 自动滚动到底部
                 setTimeout(() => {
                   if (analysisContainerRef.current) {
@@ -300,7 +302,7 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 backdrop-blur-xl shadow-[0_20px_60px_rgba(76,29,149,0.35)] max-w-3xl mx-auto">
                 <p className="text-slate-200/90 text-sm mb-2">
-                  <span className="text-purple-200 font-medium">您的问题：</span>
+                  <span className="text-purple-200 font-medium">你的问题：</span>
                   {question}
                 </p>
                 <p className="text-purple-200/80 text-sm">
@@ -327,11 +329,10 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
                           {drawnCard.position.name}
                         </div>
                         <div
-                          className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                            drawnCard.isReversed
-                              ? 'bg-amber-500/20 text-amber-200'
-                              : 'bg-emerald-500/20 text-emerald-200'
-                          }`}
+                          className={`rounded-full px-3 py-1 text-xs font-semibold ${drawnCard.isReversed
+                            ? 'bg-amber-500/20 text-amber-200'
+                            : 'bg-emerald-500/20 text-emerald-200'
+                            }`}
                         >
                           {drawnCard.isReversed ? '逆位' : '正位'}
                         </div>
@@ -385,143 +386,143 @@ ${JSON.stringify({ cards: cardsData }, null, 2)}
                     </div>
                   ))}
                 </div>
-            </div>
+              </div>
 
-            {/* Analysis Display */}
-            <div className="rounded-3xl border border-white/15 bg-white/5 p-6 shadow-[0_35px_120px_rgba(76,29,149,0.45)] backdrop-blur-xl flex flex-col">
-              <h2 className="text-xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-100 to-pink-100 mb-6 font-[var(--font-display)]">
-                塔罗解读
-              </h2>
+              {/* Analysis Display */}
+              <div className="rounded-3xl border border-white/15 bg-white/5 p-6 shadow-[0_35px_120px_rgba(76,29,149,0.45)] backdrop-blur-xl flex flex-col">
+                <h2 className="text-xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-100 to-pink-100 mb-6 font-[var(--font-display)]">
+                  塔罗解读
+                </h2>
 
-              <div
-                ref={analysisContainerRef}
-                className="flex-1 max-h-[calc(100vh-250px)] overflow-y-auto scroll-smooth pr-2"
-              >
-                {error && (
-                  <div className="mb-6 rounded-2xl border border-red-400/40 bg-red-500/10 p-4 shadow-[0_15px_40px_rgba(220,38,38,0.3)]">
-                    <div className="mb-2 text-sm font-semibold text-red-200">
-                      分析失败
+                <div
+                  ref={analysisContainerRef}
+                  className="flex-1 max-h-[calc(100vh-250px)] overflow-y-auto scroll-smooth pr-2"
+                >
+                  {error && (
+                    <div className="mb-6 rounded-2xl border border-red-400/40 bg-red-500/10 p-4 shadow-[0_15px_40px_rgba(220,38,38,0.3)]">
+                      <div className="mb-2 text-sm font-semibold text-red-200">
+                        分析失败
+                      </div>
+                      <div className="text-sm text-red-100/80">{error}</div>
+                      <button
+                        onClick={() => router.push('/settings')}
+                        className="mt-3 inline-flex rounded-full bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 text-sm font-medium text-white shadow-[0_10px_25px_rgba(220,38,38,0.35)] transition-transform hover:scale-[1.03]"
+                      >
+                        检查设置
+                      </button>
                     </div>
-                    <div className="text-sm text-red-100/80">{error}</div>
-                    <button
-                      onClick={() => router.push('/settings')}
-                      className="mt-3 inline-flex rounded-full bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 text-sm font-medium text-white shadow-[0_10px_25px_rgba(220,38,38,0.35)] transition-transform hover:scale-[1.03]"
-                    >
-                      检查设置
-                    </button>
-                  </div>
-                )}
+                  )}
 
-                {isLoading && (
-                  <div className="py-12 text-center">
-                    <div className="relative mx-auto mb-6 h-16 w-16">
-                      <div className="absolute inset-0 rounded-full border-4 border-purple-500/20"></div>
-                      <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-purple-400 border-r-pink-400"></div>
+                  {isLoading && (
+                    <div className="py-12 text-center">
+                      <div className="relative mx-auto mb-6 h-16 w-16">
+                        <div className="absolute inset-0 rounded-full border-4 border-purple-500/20"></div>
+                        <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-purple-400 border-r-pink-400"></div>
+                      </div>
+                      <div className="mb-2 text-base font-semibold text-white">
+                        毛毛狐正在为你解读...
+                      </div>
+                      <div className="text-sm text-slate-300/70">
+                        这可能需要几十秒时间
+                      </div>
                     </div>
-                    <div className="mb-2 text-base font-semibold text-white">
-                      塔罗大师正在为您解读...
-                    </div>
-                    <div className="text-sm text-slate-300/70">
-                      这可能需要几十秒时间
-                    </div>
-                  </div>
-                )}
+                  )}
 
-                {analysis && (
-                  <div className="prose prose-invert max-w-none prose-headings:font-[var(--font-display)] prose-headings:text-white prose-p:text-slate-200 prose-p:leading-relaxed prose-strong:text-white prose-em:text-purple-300 prose-ul:text-slate-200 prose-ol:text-slate-200 prose-li:text-slate-200">
-                    <ReactMarkdown
-                      components={{
-                        h1: ({ children }) => (
-                          <h1 className="mb-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-100 to-pink-100">
-                            {children}
-                          </h1>
-                        ),
-                        h2: ({ children }) => (
-                          <h2 className="mb-3 mt-6 text-xl font-bold text-white">
-                            {children}
-                          </h2>
-                        ),
-                        h3: ({ children }) => (
-                          <h3 className="mb-2 mt-4 text-lg font-semibold text-purple-100">
-                            {children}
-                          </h3>
-                        ),
-                        p: ({ children }) => (
-                          <p className="mb-4 leading-relaxed text-slate-200">
-                            {children}
-                          </p>
-                        ),
-                        strong: ({ children }) => (
-                          <strong className="font-semibold text-white">
-                            {children}
-                          </strong>
-                        ),
-                        em: ({ children }) => (
-                          <em className="text-purple-300">{children}</em>
-                        ),
-                        ul: ({ children }) => (
-                          <ul className="mb-4 space-y-1 pl-6 text-slate-200">
-                            {children}
-                          </ul>
-                        ),
-                        ol: ({ children }) => (
-                          <ol className="mb-4 space-y-1 pl-6 text-slate-200">
-                            {children}
-                          </ol>
-                        ),
-                        li: ({ children }) => (
-                          <li className="text-slate-200">{children}</li>
-                        ),
-                        blockquote: ({ children }) => (
-                          <blockquote className="my-4 border-l-4 border-purple-400/60 bg-purple-500/10 py-2 pl-4 italic text-purple-200 rounded-r-lg">
-                            {children}
-                          </blockquote>
-                        ),
-                      }}
-                    >
-                      {analysis}
-                    </ReactMarkdown>
-                  </div>
-                )}
+                  {analysis && (
+                    <div className="prose prose-invert max-w-none prose-headings:font-[var(--font-display)] prose-headings:text-white prose-p:text-slate-200 prose-p:leading-relaxed prose-strong:text-white prose-em:text-purple-300 prose-ul:text-slate-200 prose-ol:text-slate-200 prose-li:text-slate-200">
+                      <ReactMarkdown
+                        components={{
+                          h1: ({ children }) => (
+                            <h1 className="mb-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-100 to-pink-100">
+                              {children}
+                            </h1>
+                          ),
+                          h2: ({ children }) => (
+                            <h2 className="mb-3 mt-6 text-xl font-bold text-white">
+                              {children}
+                            </h2>
+                          ),
+                          h3: ({ children }) => (
+                            <h3 className="mb-2 mt-4 text-lg font-semibold text-purple-100">
+                              {children}
+                            </h3>
+                          ),
+                          p: ({ children }) => (
+                            <p className="mb-4 leading-relaxed text-slate-200">
+                              {children}
+                            </p>
+                          ),
+                          strong: ({ children }) => (
+                            <strong className="font-semibold text-white">
+                              {children}
+                            </strong>
+                          ),
+                          em: ({ children }) => (
+                            <em className="text-purple-300">{children}</em>
+                          ),
+                          ul: ({ children }) => (
+                            <ul className="mb-4 space-y-1 pl-6 text-slate-200">
+                              {children}
+                            </ul>
+                          ),
+                          ol: ({ children }) => (
+                            <ol className="mb-4 space-y-1 pl-6 text-slate-200">
+                              {children}
+                            </ol>
+                          ),
+                          li: ({ children }) => (
+                            <li className="text-slate-200">{children}</li>
+                          ),
+                          blockquote: ({ children }) => (
+                            <blockquote className="my-4 border-l-4 border-purple-400/60 bg-purple-500/10 py-2 pl-4 italic text-purple-200 rounded-r-lg">
+                              {children}
+                            </blockquote>
+                          ),
+                        }}
+                      >
+                        {analysis}
+                      </ReactMarkdown>
+                    </div>
+                  )}
 
-                {!isLoading && !error && !analysis && (
-                  <div className="py-12 text-center text-slate-400">
-                    等待分析开始...
-                  </div>
-                )}
+                  {!isLoading && !error && !analysis && (
+                    <div className="py-12 text-center text-slate-400">
+                      等待分析开始...
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={handleNewReading}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 px-8 py-3 text-base font-semibold text-white shadow-[0_25px_65px_rgba(232,121,249,0.45)] transition-all duration-300 hover:scale-[1.04]"
-            >
-              <span className="text-lg">🔮</span>
-              新的占卜
-            </button>
+            {/* Action Buttons */}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <button
+                onClick={handleNewReading}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 px-8 py-3 text-base font-semibold text-white shadow-[0_25px_65px_rgba(232,121,249,0.45)] transition-all duration-300 hover:scale-[1.04]"
+              >
+                <span className="text-lg">🔮</span>
+                新的占卜
+              </button>
 
-            <button
-              onClick={() => router.push('/history')}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3 text-base font-medium text-slate-200 backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
-            >
-              <span className="text-lg">📜</span>
-              占卜历史
-            </button>
+              <button
+                onClick={() => router.push('/history')}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3 text-base font-medium text-slate-200 backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
+              >
+                <span className="text-lg">📜</span>
+                占卜历史
+              </button>
 
-            <button
-              onClick={() => router.push('/settings')}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3 text-base font-medium text-slate-200 backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
-            >
-              <span className="text-lg">⚙️</span>
-              设置
-            </button>
+              <button
+                onClick={() => router.push('/settings')}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3 text-base font-medium text-slate-200 backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
+              >
+                <span className="text-lg">⚙️</span>
+                设置
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
